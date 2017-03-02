@@ -1,0 +1,8 @@
+hosts:
+  - http://google.com
+
+notifiers:
+  type: 'pushbullet'
+  destination: 'example@mail.com'
+  creds:
+    access_token: 'push_bullet_access_token'
