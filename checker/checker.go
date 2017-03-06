@@ -1,15 +1,15 @@
 package checker
 
 import (
+	"fmt"
+	"log"
 	"net/http"
-	"runtime"
-	"svcheck/notify"
+	"svcheck/notifications"
 	"svcheck/types"
 )
 
 // CheckSites : check website and return status
 func CheckSites(url []interface{}) bool {
-	runtime.GOMAXPROCS(10)
 	allAlive := true
 
 	channel := make(chan types.Request)
@@ -18,13 +18,15 @@ func CheckSites(url []interface{}) bool {
 		go isSiteAlive(s.(string), channel)
 
 		req := <-channel
+		log.Printf("%s", req.Website)
 
-		if req.IsAlive {
-			notify.SendNotification(req)
-		} else {
-			allAlive = false
-			notify.SendNotification(req)
+		if req.IsAlive == false {
+			title := fmt.Sprintf("Website is down")
+			body := fmt.Sprintf("Website %s is down. Error: %s", req.Website, req.Status)
+
+			notifications.NotifyUser(title, body)
 		}
+
 	}
 
 	return allAlive

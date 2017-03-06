@@ -22,11 +22,16 @@ func loadConfig() {
 // GetHostsList : Parse the hosts-list file and return the hosts list
 func GetHostsList() interface{} {
 	loadConfig()
+
 	return viper.Get("hosts")
 }
 
-// GetNotifiersList : Get the notification types to
-func GetNotifiersList() interface{} {
+// GetNotifierData : Get the notification types to
+func GetNotifierData(name string) interface{} {
 	loadConfig()
-	return viper.Get("notifiers")
+
+	notifiers := viper.Get("notifiers")
+	notifier := notifiers.(map[string]interface{})[name]
+
+	return notifier
 }
