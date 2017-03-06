@@ -1,11 +1,12 @@
 package main
 
 import (
-	"svcheck/checker"
-	"svcheck/config"
+	"svchk/checker"
+	"svchk/config"
 )
 
 func main() {
+
 	hosts := config.GetHostsList()
 
 	checker.CheckSites(hosts.([]interface{}))

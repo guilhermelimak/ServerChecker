@@ -6,9 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"svcheck/config"
-	"svcheck/types"
-	"svcheck/util"
+	"svchk/config"
+	"svchk/types"
+	"svchk/util"
 )
 
 // Pushbullet : A pushbullet notifier instance

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"svcheck/notifications"
-	"svcheck/types"
+	"svchk/notifications"
+	"svchk/types"
 )
 
 // CheckSites : check website and return status
