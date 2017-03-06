@@ -1,0 +1,18 @@
+hosts:
+  - http://greenstorebr.com
+  - http://koya.pw:299
+  - http://files.koya.pw
+  - http://docker.koya.pw
+  - http://ipecho.koya.pw
+  - http://104.236.195.212/
+
+notifiers:
+  pushbullet:
+    destination: 'guilherme.limak@gmail.com'
+    creds:
+      access_token: 'o.QOd9oGRhQod4fhZdupcxfVHftwSp3AKG'
+
+  email:
+    destination: 'guilherme.limak@gmail.com'
+    creds:
+      access_token: 'email_creds'

@@ -7,10 +7,12 @@ import (
 )
 
 func loadConfig() {
-	fileName := "config"
+	fileName := ".srvchkrc"
 
 	viper.SetConfigName(fileName)
+
 	viper.AddConfigPath(".")
+	viper.AddConfigPath("$HOME")
 
 	err := viper.ReadInConfig()
 
