@@ -1,23 +1,52 @@
 package config
 
 import (
+	"bytes"
+	"fmt"
 	"log"
+	"os/exec"
 
+	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
 )
 
+func createDefaultConfig() {
+	exampleFile := "./.svchk.example.yml"
+	configName := ".svchk.yml"
+	homeDir, homeDirErr := homedir.Dir()
+
+	if homeDirErr != nil {
+		log.Fatal(homeDirErr)
+	}
+
+	destination := fmt.Sprintf("%s/%s", homeDir, configName)
+	cpCmd := exec.Command("cp", exampleFile, destination)
+
+	var out bytes.Buffer
+	var stderr bytes.Buffer
+
+	cpCmd.Stdout = &out
+	cpCmd.Stderr = &stderr
+
+	cpErr := cpCmd.Run()
+	if cpErr != nil {
+		fmt.Println(fmt.Sprint(cpErr) + ": " + stderr.String())
+		return
+	}
+}
+
 func loadConfig() {
-	fileName := ".srvchkrc"
+	fileName := ".svchk"
 
 	viper.SetConfigName(fileName)
 
 	viper.AddConfigPath(".")
 	viper.AddConfigPath("$HOME")
 
-	err := viper.ReadInConfig()
-
-	if err != nil {
-		log.Fatal(err)
+	configErr := viper.ReadInConfig()
+	if configErr != nil {
+		createDefaultConfig()
+		log.Fatal(configErr)
 	}
 }
 
